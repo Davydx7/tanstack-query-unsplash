@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import axios from 'axios';
-import { createApi } from 'unsplash-js';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import axios from "axios";
+import { createApi } from "unsplash-js";
 import {
   useQuery,
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [page, setPage] = React.useState('posts');
+  const [page, setPage] = React.useState("posts");
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -27,27 +27,27 @@ function App() {
         The posts call behaves as expected
       </p>
       <p>
-        <a href="#" onClick={() => setPage('posts')}>
+        <a href="#" onClick={() => setPage("posts")}>
           Posts
         </a>
         <br />
-        <a href="#" onClick={() => setPage('pictures')}>
+        <a href="#" onClick={() => setPage("pictures")}>
           pictures
         </a>
       </p>
-      {page === 'posts' ? <Posts /> : <Pictures />}
+      {page === "posts" ? <Posts /> : <Pictures />}
       <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   );
 }
 
 const unsplash = createApi({
-  accessKey: process.env.REACT_APP_UNSPLASH_API_KEY,
+  accessKey: "ltCPDyi9yVK9VuCoGBL5wlndviDS6CpJzmsUKmXwUf8",
 });
 
 function useUnsplash(query, perPage) {
   return useQuery({
-    queryKey: ['unsplash'],
+    queryKey: ["unsplash"],
     queryFn: async () => {
       const results = await unsplash.search
         .getPhotos({
@@ -68,15 +68,15 @@ function useUnsplash(query, perPage) {
 }
 
 function Pictures() {
-  const { data, status, error, isFetching } = useUnsplash('cats', 4);
+  const { data, status, error, isFetching } = useUnsplash("cats", 4);
 
   return (
     <div>
       <h1>Pictures</h1>
       <div>
-        {status === 'pending' ? (
-          'Loading...'
-        ) : status === 'error' ? (
+        {status === "pending" ? (
+          "Loading..."
+        ) : status === "error" ? (
           <span>Error: {error.message}</span>
         ) : (
           <>
@@ -90,7 +90,7 @@ function Pictures() {
                 />
               ))}
             </div>
-            <div>{isFetching ? 'Background Updating...' : ''}</div>
+            <div>{isFetching ? "Background Updating..." : ""}</div>
           </>
         )}
       </div>
@@ -100,10 +100,10 @@ function Pictures() {
 
 function usePosts() {
   return useQuery({
-    queryKey: ['posts'],
+    queryKey: ["posts"],
     queryFn: async () => {
       const { data } = await axios.get(
-        'https://jsonplaceholder.typicode.com/posts'
+        "https://jsonplaceholder.typicode.com/posts",
       );
       return data;
     },
@@ -118,9 +118,9 @@ function Posts() {
     <div>
       <h1>Posts</h1>
       <div>
-        {status === 'pending' ? (
-          'Loading...'
-        ) : status === 'error' ? (
+        {status === "pending" ? (
+          "Loading..."
+        ) : status === "error" ? (
           <span>Error: {error.message}</span>
         ) : (
           <>
@@ -129,7 +129,7 @@ function Posts() {
                 <p key={post.id}>{post.title}</p>
               ))}
             </div>
-            <div>{isFetching ? 'Background Updating...' : ''}</div>
+            <div>{isFetching ? "Background Updating..." : ""}</div>
           </>
         )}
       </div>
@@ -137,5 +137,5 @@ function Posts() {
   );
 }
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement).render(<App />);
