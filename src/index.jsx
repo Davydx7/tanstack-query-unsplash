@@ -42,7 +42,7 @@ function App() {
 }
 
 const unsplash = createApi({
-  accessKey: process.env.REACT_APP_UNSPLASH_API_KEY,
+  accessKey: "ltCPDyi9yVK9VuCoGBL5wlndviDS6CpJzmsUKmXwUf8",
 });
 
 function useUnsplash(query, perPage) {
